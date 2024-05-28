@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     "django.contrib.sessions",
     "django.contrib.messages",
     "django.contrib.staticfiles",
+    "catalog"
 ]
 
 MIDDLEWARE = [
@@ -100,7 +101,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
+USER_MODEL = "catalog.Performer"
 # Internationalization
 # https://docs.djangoproject.com/en/5.0/topics/i18n/
 
