@@ -1,3 +1,5 @@
+from msilib.schema import ListView
+
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 
@@ -6,7 +8,7 @@ from catalog.models import Song, Performer, Genre
 
 # Create your views here.
 
-# @login_required
+@login_required
 def index(request):
     """View function for the home page of the site."""
     num_songs = Song.objects.all().count()
@@ -25,3 +27,7 @@ def index(request):
     }
 
     return render(request, "catalog/index.html", context=context)
+
+
+
+
