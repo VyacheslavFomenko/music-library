@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+        Song List
+        <a href="{% url 'catalog:song-create' %}" class="btn btn-primary link-to-page">
+            Create
+        </a>
+    </h1>
+    {% if song_list %}
+        <ul>
+            {% for song in song_list %}
+                <li>
+                    <a href="{% url 'catalog:song-detail' pk=song.id %}"> {{ song.id }} </a>
+                    {{ song.title }} {{ song.duration }} ({{ song.genre.name }})
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>There are no songs in the catalog.</p>
+    {% endif %}
+{% endblock %}

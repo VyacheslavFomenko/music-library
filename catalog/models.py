@@ -12,10 +12,7 @@ class Genre(models.Model):
 class Performer(models.Model):
     first_name = models.CharField(max_length=255)
     last_name = models.CharField(max_length=255)
-    nickname = models.CharField(max_length=63,
-                                null=True,
-                                blank=True
-                                )
+    nickname = models.CharField(max_length=63, null=True, blank=True)
 
     class Meta:
         ordering = ["last_name", "first_name"]
