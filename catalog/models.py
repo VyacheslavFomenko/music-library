@@ -23,7 +23,7 @@ class Performer(models.Model):
 
 class Song(models.Model):
     title = models.CharField(max_length=255)
-    duration = models.IntegerField()
+    duration = models.FloatField()
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="songs")
 
     class Meta:

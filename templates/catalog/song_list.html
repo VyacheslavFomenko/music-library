@@ -8,14 +8,22 @@
         </a>
     </h1>
     {% if song_list %}
-        <ul>
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Duration(m/s)</th>
+                <th>Genre</th>
+            </tr>
             {% for song in song_list %}
-                <li>
-                    <a href="{% url 'catalog:song-detail' pk=song.id %}"> {{ song.id }} </a>
-                    {{ song.title }} {{ song.duration }} ({{ song.genre.name }})
-                </li>
+                <tr>
+                        <td><a href="{% url 'catalog:song-detail' pk=song.id %}"> {{ song.id }} </a></td>
+                        <td>{{ song.title }}</td>
+                        <td>{{ song.duration }}</td>
+                        <td>({{ song.genre.name }})</td>
+                </tr>
             {% endfor %}
-        </ul>
+        </table>
     {% else %}
         <p>There are no songs in the catalog.</p>
     {% endif %}
