@@ -36,6 +36,7 @@ class SongListView(generic.ListView):
     model = Song
     context_object_name = "song_list"
     template_name = "catalog/song_list.html"
+    queryset = Song.objects.select_related("genre")
 
 
 class SongCreateView(generic.CreateView):
