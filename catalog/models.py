@@ -25,6 +25,7 @@ class Song(models.Model):
     title = models.CharField(max_length=255)
     duration = models.FloatField()
     genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="songs")
+    performer = models.ManyToManyField(Performer, related_name="performer")
 
     class Meta:
         ordering = ["title"]
