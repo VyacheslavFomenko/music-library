@@ -84,3 +84,29 @@ class GenreDeleteView(generic.DeleteView):
     success_url = reverse_lazy("catalog:genre-list")
 
 
+class PerformerListView(generic.ListView):
+    model = Performer
+    context_object_list = "performer_list"
+    template_name = "catalog/performer_list.html"
+
+
+class PerformerDetailView(generic.DetailView):
+    model = Performer
+
+
+class PerformerCreateView(generic.CreateView):
+    model = Performer
+    fields = "__all__"
+    success_url = reverse_lazy("catalog:performer-list")
+
+
+class PerformerUpdateView(generic.UpdateView):
+    model = Performer
+    fields = "__all__"
+    success_url = reverse_lazy("catalog:performer-list")
+
+
+class PerformerDeleteView(generic.UpdateView):
+    model = Performer
+    fields = "__all__"
+    success_url = reverse_lazy("catalog:performer-list")

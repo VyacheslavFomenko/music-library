@@ -9,7 +9,8 @@ from catalog.views import (
     GenreListView,
     GenreCreateView,
     GenreUpdateView,
-    GenreDeleteView, SongDetailView
+    GenreDeleteView, SongDetailView, PerformerListView, PerformerCreateView, PerformerUpdateView, PerformerDeleteView,
+    PerformerDetailView
 )
 
 urlpatterns = [
@@ -23,6 +24,12 @@ urlpatterns = [
     path("genre/create", GenreCreateView.as_view(), name="genre-create"),
     path("genre/<int:pk>/update", GenreUpdateView.as_view(), name="genre-update"),
     path("genre/<int:pk>/delete", GenreDeleteView.as_view(), name="genre-delete"),
+    path("performer/", PerformerListView.as_view(), name="performer-list"),
+    path("performer/create", PerformerCreateView.as_view(), name="performer-create"),
+    path("performer/<int:pk>/update", PerformerUpdateView.as_view(), name="performer-update"),
+    path("performer/<int:pk>/delete", PerformerDeleteView.as_view(), name="performer-delete"),
+    path("performer/<int:pk>/", PerformerDetailView.as_view(), name="performer-detail"),
+
 ]
 
 app_name = "catalog"
