@@ -37,6 +37,7 @@ class SongListView(generic.ListView):
     context_object_name = "song_list"
     template_name = "catalog/song_list.html"
     queryset = Song.objects.select_related("genre")
+    paginate_by = 5
 
 
 class SongCreateView(generic.CreateView):
@@ -65,6 +66,7 @@ class GenreListView(generic.ListView):
     model = Genre
     context_object_list = "genre_list"
     template_name = "catalog/genre_list.html"
+    paginate_by = 5
 
 
 class GenreCreateView(generic.CreateView):
@@ -89,6 +91,7 @@ class PerformerListView(generic.ListView):
     model = Performer
     context_object_list = "performer_list"
     template_name = "catalog/performer_list.html"
+    paginate_by = 5
 
 
 class PerformerDetailView(generic.DetailView):
