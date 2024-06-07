@@ -7,6 +7,11 @@
             Create
         </a>
     </h1>
+    <div>
+        {% if search_form %}
+            {% include "includes/search.html" %}
+        {% endif %}
+    </div>
     {% if genre_list %}
         <table class="table">
             <tr>

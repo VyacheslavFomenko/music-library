@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
+from catalog.forms import SearchForm
 from catalog.models import Song, Performer, Genre
 
 
@@ -39,6 +40,19 @@ class SongListView(generic.ListView):
     queryset = Song.objects.select_related("genre")
     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super(SongListView, self).get_context_data(**kwargs)
+        param = self.request.GET.get("param", "")
+        context["search_form"] = SearchForm(initial={"param": param})
+        return context
+
+    def get_queryset(self):
+        queryset = Song.objects.select_related("genre")
+        form = SearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(title__icontains=form.cleaned_data["param"])
+        return queryset
+
 
 class SongCreateView(generic.CreateView):
     model = Song
@@ -68,6 +82,19 @@ class GenreListView(generic.ListView):
     template_name = "catalog/genre_list.html"
     paginate_by = 5
 
+    def get_context_data(self, **kwargs):
+        context = super(GenreListView, self).get_context_data(**kwargs)
+        param = self.request.GET.get("param", "")
+        context["search_form"] = SearchForm(initial={"param": param})
+        return context
+
+    def get_queryset(self):
+        queryset = Genre.objects.all()
+        form = SearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(name__icontains=form.cleaned_data["param"])
+        return queryset
+
 
 class GenreCreateView(generic.CreateView):
     model = Genre
@@ -92,6 +119,19 @@ class PerformerListView(generic.ListView):
     context_object_list = "performer_list"
     template_name = "catalog/performer_list.html"
     paginate_by = 5
+
+    def get_context_data(self, **kwargs):
+        context = super(PerformerListView, self).get_context_data(**kwargs)
+        param = self.request.GET.get("param", "")
+        context["search_form"] = SearchForm(initial={"param": param})
+        return context
+
+    def get_queryset(self):
+        queryset = Performer.objects.all()
+        form = SearchForm(self.request.GET)
+        if form.is_valid():
+            return queryset.filter(last_name__icontains=form.cleaned_data["param"])
+        return queryset
 
 
 class PerformerDetailView(generic.DetailView):

@@ -7,6 +7,11 @@
             Create
         </a>
     </h1>
+    <div>
+        {% if search_form %}
+            {% include "includes/search.html" %}
+        {% endif %}
+    </div>
     {% if song_list %}
         <table class="table">
             <tr>
@@ -17,10 +22,10 @@
             </tr>
             {% for song in song_list %}
                 <tr>
-                        <td><a href="{% url 'catalog:song-detail' pk=song.id %}"> {{ song.id }} </a></td>
-                        <td>{{ song.title }}</td>
-                        <td>{{ song.duration }}</td>
-                        <td>({{ song.genre.name }})</td>
+                    <td><a href="{% url 'catalog:song-detail' pk=song.id %}"> {{ song.id }} </a></td>
+                    <td>{{ song.title }}</td>
+                    <td>{{ song.duration }}</td>
+                    <td>({{ song.genre.name }})</td>
                 </tr>
             {% endfor %}
         </table>
