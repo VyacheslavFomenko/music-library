@@ -1,4 +1,5 @@
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
@@ -35,7 +36,7 @@ def index(request):
     return render(request, "catalog/index.html", context=context)
 
 
-class SongListView(generic.ListView):
+class SongListView(LoginRequiredMixin, generic.ListView):
     model = Song
     context_object_name = "song_list"
     template_name = "catalog/song_list.html"
@@ -56,29 +57,29 @@ class SongListView(generic.ListView):
         return queryset
 
 
-class SongCreateView(generic.CreateView):
+class SongCreateView(LoginRequiredMixin, generic.CreateView):
     model = Song
     fields = "__all__"
     success_url = reverse_lazy("catalog:song-list")
 
 
-class SongUpdateView(generic.UpdateView):
+class SongUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Song
     fields = "__all__"
     success_url = reverse_lazy("catalog:song-list")
 
 
-class SongDeleteView(generic.DeleteView):
+class SongDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Song
     fields = "__all__"
     success_url = reverse_lazy("catalog:song-list")
 
 
-class SongDetailView(generic.DetailView):
+class SongDetailView(LoginRequiredMixin, generic.DetailView):
     model = Song
 
 
-class GenreListView(generic.ListView):
+class GenreListView(LoginRequiredMixin, generic.ListView):
     model = Genre
     context_object_list = "genre_list"
     template_name = "catalog/genre_list.html"
@@ -98,25 +99,25 @@ class GenreListView(generic.ListView):
         return queryset
 
 
-class GenreCreateView(generic.CreateView):
+class GenreCreateView(LoginRequiredMixin, generic.CreateView):
     model = Genre
     fields = "__all__"
     success_url = reverse_lazy("catalog:genre-list")
 
 
-class GenreUpdateView(generic.UpdateView):
+class GenreUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Genre
     fields = "__all__"
     success_url = reverse_lazy("catalog:genre-list")
 
 
-class GenreDeleteView(generic.DeleteView):
+class GenreDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Genre
     fields = "__all__"
     success_url = reverse_lazy("catalog:genre-list")
 
 
-class PerformerListView(generic.ListView):
+class PerformerListView(LoginRequiredMixin, generic.ListView):
     model = Performer
     context_object_list = "performer_list"
     template_name = "catalog/performer_list.html"
@@ -136,23 +137,23 @@ class PerformerListView(generic.ListView):
         return queryset
 
 
-class PerformerDetailView(generic.DetailView):
+class PerformerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Performer
 
 
-class PerformerCreateView(generic.CreateView):
-    model = Performer
-    fields = "__all__"
-    success_url = reverse_lazy("catalog:performer-list")
-
-
-class PerformerUpdateView(generic.UpdateView):
+class PerformerCreateView(LoginRequiredMixin, generic.CreateView):
     model = Performer
     fields = "__all__"
     success_url = reverse_lazy("catalog:performer-list")
 
 
-class PerformerDeleteView(generic.UpdateView):
+class PerformerUpdateView(LoginRequiredMixin, generic.UpdateView):
+    model = Performer
+    fields = "__all__"
+    success_url = reverse_lazy("catalog:performer-list")
+
+
+class PerformerDeleteView(LoginRequiredMixin, generic.UpdateView):
     model = Performer
     fields = "__all__"
     success_url = reverse_lazy("catalog:performer-list")
