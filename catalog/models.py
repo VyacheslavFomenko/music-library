@@ -1,6 +1,8 @@
 from django.contrib.auth.models import AbstractUser
 from django.db import models
 
+from listener.models import Listener
+
 
 class Genre(models.Model):
     name = models.CharField(max_length=255, unique=True)
@@ -24,8 +26,9 @@ class Performer(models.Model):
 class Song(models.Model):
     title = models.CharField(max_length=255)
     duration = models.FloatField()
-    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="songs")
+    genre = models.ForeignKey(Genre, on_delete=models.CASCADE, related_name="genre")
     performer = models.ManyToManyField(Performer, related_name="performer")
+    listener = models.ManyToManyField(Listener, related_name="songs")
 
     class Meta:
         ordering = ["title"]

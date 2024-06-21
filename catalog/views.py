@@ -1,10 +1,12 @@
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
 from catalog.forms import SearchForm
 from catalog.models import Song, Performer, Genre
+from listener.models import Listener
 
 
 # Create your views here.
@@ -154,3 +156,15 @@ class PerformerDeleteView(generic.UpdateView):
     model = Performer
     fields = "__all__"
     success_url = reverse_lazy("catalog:performer-list")
+
+
+@login_required
+def add_song_to_favorites(request, pk):
+    listener = Listener.objects.get(id=request.user.id)
+    if (
+        Song.objects.get(id=pk) in listener.songs.all()
+    ):
+        listener.songs.remove(pk)
+    else:
+        listener.songs.add(pk)
+    return HttpResponseRedirect(reverse_lazy("catalog:song-detail", args=[pk]))
