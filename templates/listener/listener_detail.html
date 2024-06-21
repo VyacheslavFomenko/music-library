@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% include 'catalog' %}
+
+{% block content %}
+  <h1>
+    Username: {{ listener.username }}
+    <a href="{% url 'listener:listener-delete' pk=listener.id %}" class="btn btn-danger link-to-page">
+      Delete
+    </a>
+  </h1>
+
+  <p><strong>First name:</strong> {{ listener.first_name }}</p>
+  <p><strong>Last name:</strong> {{ listener.last_name }}</p>
+
+  <div class="ml-3">
+    <h4>Songs:</h4>
+
+    {% for song in listener.songs.all %}
+        <hr>
+        <p><strong>Title:</strong> {{ song.title }}</p>
+        <p><strong>Duration:</strong> {{ song.duration }}</p>
+        <p><strong>Genre:</strong> {{ song.genre.name }}</p>
+        <p class="text-muted"><strong>Id:</strong> {{song.id}}</p>
+
+    {% empty %}
+      <p>No songs!</p>
+    {% endfor %}
+  </div>
+{% endblock %}
