@@ -147,13 +147,13 @@ class PerformerCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("catalog:performer-list")
 
 
-class PerformerUpdateView(LoginRequiredMixin, generic.UpdateView):
+class PerformerUpdateView(generic.UpdateView):
     model = Performer
     fields = "__all__"
     success_url = reverse_lazy("catalog:performer-list")
 
 
-class PerformerDeleteView(LoginRequiredMixin, generic.UpdateView):
+class PerformerDeleteView(LoginRequiredMixin, generic.DeleteView):
     model = Performer
     fields = "__all__"
     success_url = reverse_lazy("catalog:performer-list")
@@ -163,7 +163,7 @@ class PerformerDeleteView(LoginRequiredMixin, generic.UpdateView):
 def add_song_to_favorites(request, pk):
     listener = Listener.objects.get(id=request.user.id)
     if (
-        Song.objects.get(id=pk) in listener.songs.all()
+            Song.objects.get(id=pk) in listener.songs.all()
     ):
         listener.songs.remove(pk)
     else:
