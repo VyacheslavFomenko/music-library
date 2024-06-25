@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+        Song: {{ song.title }}
+        <div>
+            <a href="{% url 'catalog:song-delete' pk=song.id %}" class="btn btn-danger link-to-page">
+                Delete
+            </a>
+
+            <a href="{% url 'catalog:song-update' pk=song.id %}" class="btn btn-secondary link-to-page">
+                Update
+            </a>
+            {% if song in user.songs.all %}
+                <a href="{% url 'catalog:add-to-favourite-song' pk=song.id %}" class="btn btn-danger link-to-page">
+                    Delete this song from favourites
+                </a>
+            {% else %}
+                <a href="{% url 'catalog:add-to-favourite-song' pk=song.id %}" class="btn btn-success link-to-page">
+                    Add song to favorites
+                </a>
+            {% endif %}
+        </div>
+    </h1>
+    <p>Genre: {{ song.genre.name }}</p>
+    <h1>
+        Performer: {{ song.performer.first_name }} {{ song.performer.last_name }}
+    </h1>
+    <hr>
+    <ul>
+    </ul>
+{% endblock %}

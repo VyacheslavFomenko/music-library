@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+        Song List
+        <a href="{% url 'catalog:song-create' %}" class="btn btn-primary link-to-page">
+            Create
+        </a>
+    </h1>
+    <div>
+        {% if search_form %}
+            {% include "includes/search.html" %}
+        {% endif %}
+    </div>
+    {% if song_list %}
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Title</th>
+                <th>Duration(m/s)</th>
+                <th>Genre</th>
+            </tr>
+            {% for song in song_list %}
+                <tr>
+                    <td><a href="{% url 'catalog:song-detail' pk=song.id %}"> {{ song.id }} </a></td>
+                    <td>{{ song.title }}</td>
+                    <td>{{ song.duration }}</td>
+                    <td>({{ song.genre.name }})</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>There are no songs in the catalog.</p>
+    {% endif %}
+{% endblock %}

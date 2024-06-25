@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>Music Library Home</h1>
+    <p>Welcome to Paradise!</p>
+    <h2>Dynamic content</h2>
+    <p>The Music service has the following record counts:</p>
+    <ul>
+        <li><strong>Songs:</strong> {{ num_songs }}</li>
+        <li><strong>Performers:</strong> {{ num_performers }}</li>
+        <li><strong>Genres:</strong> {{ num_genres }}</li>
+    </ul>
+
+    <p>You have visited this page
+        {{ num_visits }} time{{ num_visits|pluralize }}.
+    </p>
+
+{% endblock %}

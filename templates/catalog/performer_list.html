@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>
+        Performers List
+        <a href="{% url 'catalog:performer-create' %}" class="btn btn-primary link-to-page">
+            Create
+        </a>
+    </h1>
+    <div>
+        {% if search_form %}
+            {% include "includes/search.html" %}
+        {% endif %}
+    </div>
+    {% if performer_list %}
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Username</th>
+                <th>First name</th>
+                <th>Last name</th>
+            </tr>
+
+            {% for performer in performer_list %}
+                <tr>
+                    <td><a href="{% url 'catalog:performer-detail' pk=performer.id %}">
+                        {{ performer.id }}
+                    </a>
+                    </td>
+                    <td>
+                        {{ performer.nickname }}
+                    </td>
+                    <td>
+                        {{ performer.first_name }}
+                    </td>
+                    <td>
+                        {{ performer.last_name }}
+                    </td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>There are no manufacturers in the service.</p>
+    {% endif %}
+{% endblock %}
