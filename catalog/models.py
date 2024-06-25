@@ -34,4 +34,5 @@ class Song(models.Model):
         ordering = ["title"]
 
     def __str__(self):
-        return f"{self.title} {self.duration} {self.genre}."
+        return (f"Song title: {self.title}, Duration: {self.duration} min/sec, "
+                f"Genre: {self.genre}.")
