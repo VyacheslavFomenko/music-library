@@ -3,6 +3,7 @@ from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 
+from listener.forms import ListenerCreationForm
 from listener.models import Listener
 
 
@@ -10,6 +11,11 @@ from listener.models import Listener
 
 class ListenerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Listener
+
+
+class ListenerCreatView(LoginRequiredMixin, generic.CreateView):
+    model = Listener
+    form_class = ListenerCreationForm
 
 
 class ListenerDeleteView(LoginRequiredMixin, generic.DeleteView):
