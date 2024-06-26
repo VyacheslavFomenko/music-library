@@ -1,11 +1,47 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <h1>{{ object|yesno:"Update,Create" }} song </h1>
-  <form action="" method="post" novalidate>
-    {% csrf_token %}
-    {{ form }}
+<div class="container my-5">
+    <h1>{{ object|yesno:"Update,Create" }} Song</h1>
+    <form action="" method="post" novalidate>
+        {% csrf_token %}
+        <div class="mb-3">
+            <label for="id_title" class="form-label">Title</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.title.errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="mb-3">
+            <label for="id_duration" class="form-label">Duration (m/s)</label>
+            {{ form.duration }}
+            {% if form.duration.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.duration.errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
 
-    <input type="submit" value="Submit" class="btn btn-primary">
-  </form>
+        <div class="mb-3">
+            <label for="id_genre" class="form-label">Genre</label>
+            {{ form.genre }}
+            {% if form.genre.errors %}
+                <div class="invalid-feedback">
+                    {% for error in form.genre.errors %}
+                        <div>{{ error }}</div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
 {% endblock %}

@@ -1,18 +1,25 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>Music Library Home</h1>
-    <p>Welcome to Paradise!</p>
-    <h2>Dynamic content</h2>
-    <p>The Music service has the following record counts:</p>
-    <ul>
-        <li><strong>Songs:</strong> {{ num_songs }}</li>
-        <li><strong>Performers:</strong> {{ num_performers }}</li>
-        <li><strong>Genres:</strong> {{ num_genres }}</li>
-    </ul>
+<div class="container my-5">
+    <div class="text-center">
+        <h1 class="display-4">Music Library Home Page</h1>
+        <p class="lead">Welcome to Paradise!</p>
+    </div>
 
-    <p>You have visited this page
-        {{ num_visits }} time{{ num_visits|pluralize }}.
-    </p>
-
+    <div class="card my-4">
+        <div class="card-body">
+            <h2 class="card-title">Dynamic Content</h2>
+            <p class="card-text">The Music service has the following record counts:</p>
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item"><strong>Songs:</strong> {{ num_songs }}</li>
+                <li class="list-group-item"><strong>Performers:</strong> {{ num_performers }}</li>
+                <li class="list-group-item"><strong>Genres:</strong> {{ num_genres }}</li>
+            </ul>
+            <p class="mt-3">You have visited this page
+                <span class="badge bg-primary">{{ num_visits }}</span> time{{ num_visits|pluralize }}.
+            </p>
+        </div>
+    </div>
+</div>
 {% endblock %}

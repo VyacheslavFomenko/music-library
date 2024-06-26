@@ -147,7 +147,7 @@ class PerformerCreateView(LoginRequiredMixin, generic.CreateView):
     success_url = reverse_lazy("catalog:performer-list")
 
 
-class PerformerUpdateView(generic.UpdateView):
+class PerformerUpdateView(LoginRequiredMixin, generic.UpdateView):
     model = Performer
     fields = "__all__"
     success_url = reverse_lazy("catalog:performer-list")
