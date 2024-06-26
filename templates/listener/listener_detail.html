@@ -1,29 +1,40 @@
 {% extends "base.html" %}
-{% include 'catalog' %}
+{% load static %}
 
 {% block content %}
-  <h1>
-    Username: {{ listener.username }}
-    <a href="{% url 'listener:listener-delete' pk=listener.id %}" class="btn btn-danger link-to-page">
-      Delete
-    </a>
-  </h1>
+<div class="container my-5">
+    <h1 class="mb-4">
+        Username: {{ listener.username }}
+        <a href="{% url 'listener:listener-delete' pk=listener.id %}" class="btn btn-danger">
+            Delete
+        </a>
+    </h1>
 
-  <p><strong>First name:</strong> {{ listener.first_name }}</p>
-  <p><strong>Last name:</strong> {{ listener.last_name }}</p>
+    <div class="card mb-4">
+        <div class="card-body">
+            <p class="card-text"><strong>First name:</strong> {{ listener.first_name }}</p>
+            <p class="card-text"><strong>Last name:</strong> {{ listener.last_name }}</p>
+        </div>
+    </div>
 
-  <div class="ml-3">
-    <h4>Songs:</h4>
-
-    {% for song in listener.songs.all %}
-        <hr>
-        <p><strong>Title:</strong> {{ song.title }}</p>
-        <p><strong>Duration:</strong> {{ song.duration }}</p>
-        <p><strong>Genre:</strong> {{ song.genre.name }}</p>
-        <p class="text-muted"><strong>Id:</strong> {{song.id}}</p>
-
-    {% empty %}
-      <p>No songs!</p>
-    {% endfor %}
-  </div>
+    <div>
+        <h4>Songs:</h4>
+        {% if listener.songs.all %}
+            <div class="list-group">
+                {% for song in listener.songs.all %}
+                    <div class="list-group-item">
+                        <h5 class="mb-1">{{ song.title }}</h5>
+                        <p class="mb-1"><strong>Duration:</strong> {{ song.duration }}</p>
+                        <p class="mb-1"><strong>Genre:</strong> {{ song.genre.name }}</p>
+                        <p class="text-muted"><strong>Id:</strong> {{ song.id }}</p>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <div class="alert alert-warning" role="alert">
+                No songs!
+            </div>
+        {% endif %}
+    </div>
+</div>
 {% endblock %}

@@ -1,45 +1,43 @@
 {% extends "base.html" %}
 
 {% block content %}
-    <h1>
-        Performers List
-        <a href="{% url 'catalog:performer-create' %}" class="btn btn-primary link-to-page">
-            Create
-        </a>
-    </h1>
-    <div>
+<div class="container my-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Performers List</h1>
+        <a href="{% url 'catalog:performer-create' %}" class="btn btn-primary">Create</a>
+    </div>
+
+    <div class="mb-4">
         {% if search_form %}
             {% include "includes/search.html" %}
         {% endif %}
     </div>
-    {% if performer_list %}
-        <table class="table">
-            <tr>
-                <th>ID</th>
-                <th>Username</th>
-                <th>First name</th>
-                <th>Last name</th>
-            </tr>
 
-            {% for performer in performer_list %}
-                <tr>
-                    <td><a href="{% url 'catalog:performer-detail' pk=performer.id %}">
-                        {{ performer.id }}
-                    </a>
-                    </td>
-                    <td>
-                        {{ performer.nickname }}
-                    </td>
-                    <td>
-                        {{ performer.first_name }}
-                    </td>
-                    <td>
-                        {{ performer.last_name }}
-                    </td>
-                </tr>
-            {% endfor %}
-        </table>
+    {% if performer_list %}
+        <div class="table-responsive">
+            <table class="table table-striped table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Username</th>
+                        <th>First Name</th>
+                        <th>Last Name</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for performer in performer_list %}
+                        <tr>
+                            <td><a href="{% url 'catalog:performer-detail' pk=performer.id %}">{{ performer.id }}</a></td>
+                            <td>{{ performer.nickname }}</td>
+                            <td>{{ performer.first_name }}</td>
+                            <td>{{ performer.last_name }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
     {% else %}
-        <p>There are no manufacturers in the service.</p>
+        <p class="alert alert-info">There are no performers in the service.</p>
     {% endif %}
+</div>
 {% endblock %}
