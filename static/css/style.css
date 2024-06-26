@@ -6,3 +6,29 @@ body {
     float: right;
     margin: 0 2px 0 2px;
 }
+
+.sidebar-nav {
+    margin-top: 20px;
+}
+
+.sidebar-nav .list-group-item {
+    background-color: #f8f9fa;
+    border: 1px solid #dee2e6;
+}
+
+.sidebar-nav .list-group-item a {
+    color: #007bff;
+}
+
+.sidebar-nav .list-group-item a:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.needs-validation .form-control:invalid {
+    border-color: #dc3545;
+}
+
+.needs-validation .form-control:valid {
+    border-color: #28a745;
+}
