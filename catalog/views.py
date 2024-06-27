@@ -162,9 +162,7 @@ class PerformerDeleteView(LoginRequiredMixin, generic.DeleteView):
 @login_required
 def add_song_to_favorites(request, pk):
     listener = Listener.objects.get(id=request.user.id)
-    if (
-            Song.objects.get(id=pk) in listener.songs.all()
-    ):
+    if Song.objects.get(id=pk) in listener.songs.all():
         listener.songs.remove(pk)
     else:
         listener.songs.add(pk)

@@ -10,4 +10,3 @@ from listener.models import Listener
 @admin.register(Listener)
 class ListenerAdmin(UserAdmin):
     pass
-

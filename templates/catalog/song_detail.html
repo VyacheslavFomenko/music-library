@@ -1,25 +1,29 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container my-5">
-    <h1 class="mb-4">
-        Song: {{ song.title }}
-        <div>
-            <a href="{% url 'catalog:song-delete' pk=song.id %}" class="btn btn-danger mx-2">Delete</a>
-            <a href="{% url 'catalog:song-update' pk=song.id %}" class="btn btn-secondary mx-2">Update</a>
-            
-            {% if song in user.songs.all %}
-                <a href="{% url 'catalog:add-to-favourite-song' pk=song.id %}" class="btn btn-danger mx-2">Delete from Favorites</a>
-            {% else %}
-                <a href="{% url 'catalog:add-to-favourite-song' pk=song.id %}" class="btn btn-success mx-2">Add to Favorites</a>
-            {% endif %}
-        </div>
-    </h1>
-    <p>Genre: {{ song.genre.name }}</p>
-    <h2>Performer: {{ song.performer.first_name }} {{ song.performer.last_name }}</h2>
-    <hr>
-    <ul>
-        <!-- Add any additional details or content here -->
-    </ul>
-</div>
+    <div class="container my-5">
+        <h1 class="mb-4">
+            Song: {{ song.title }}
+            <div>
+                <a href="{% url 'catalog:song-delete' pk=song.id %}" class="btn btn-danger mx-2">Delete</a>
+                <a href="{% url 'catalog:song-update' pk=song.id %}" class="btn btn-secondary mx-2">Update</a>
+
+                {% if song in user.songs.all %}
+                    <a href="{% url 'catalog:add-to-favourite-song' pk=song.id %}" class="btn btn-danger mx-2">Delete
+                        from Favorites</a>
+                {% else %}
+                    <a href="{% url 'catalog:add-to-favourite-song' pk=song.id %}" class="btn btn-success mx-2">Add to
+                        Favorites</a>
+                {% endif %}
+            </div>
+        </h1>
+        <p>Genre: {{ song.genre.name }}</p>
+        <h2>{% for performer in song.performer.all %}
+            Performer: {{ performer.first_name }} {{ performer.last_name }} {{ performer.nickname }} </h2>
+        {% endfor %}
+        <hr>
+        <ul>
+            <!-- Add any additional details or content here -->
+        </ul>
+    </div>
 {% endblock %}

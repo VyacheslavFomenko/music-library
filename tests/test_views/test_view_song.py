@@ -19,16 +19,11 @@ class PublicSongFormatTest(TestCase):
 class PrivateCarFormatTest(TestCase):
     def setUp(self) -> None:
         self.performer = Performer.objects.create(
-            first_name="Tom",
-            last_name="Jey",
-            nickname="TJ"
+            first_name="Tom", last_name="Jey", nickname="TJ"
         )
-        self.genre = Genre.objects.create(
-            name="Clasic"
-        )
+        self.genre = Genre.objects.create(name="Clasic")
         self.user = get_user_model().objects.create_user(
-            username="test",
-            password="test123"
+            username="test", password="test123"
         )
         self.first_song = Song.objects.create(
             title="Sonne",
@@ -52,10 +47,7 @@ class PrivateCarFormatTest(TestCase):
         self.assertEqual(response.status_code, 200)
         songs = Song.objects.all()
         # print(f"Context {response.context}")
-        self.assertEqual(
-            list(response.context["song_list"]),
-            list(songs)
-        )
+        self.assertEqual(list(response.context["song_list"]), list(songs))
 
         self.assertTemplateUsed(response, "catalog/song_list.html")
 
@@ -79,16 +71,11 @@ class PrivateCarFormatTest(TestCase):
 class SongChangeTest(TestCase):
     def setUp(self):
         self.performer = Performer.objects.create(
-            first_name="Tom",
-            last_name="Jey",
-            nickname="TJ"
+            first_name="Tom", last_name="Jey", nickname="TJ"
         )
-        self.genre = Genre.objects.create(
-            name="Clasic"
-        )
+        self.genre = Genre.objects.create(name="Clasic")
         self.user = get_user_model().objects.create_user(
-            username="test",
-            password="test123"
+            username="test", password="test123"
         )
         self.first_song = Song.objects.create(
             title="Sonne",
@@ -102,23 +89,19 @@ class SongChangeTest(TestCase):
 
     def test_song_update_redirects_to_success_url(self):
         response = self.client.post(
-            reverse(
-                "catalog:song-update",
-                kwargs={"pk": self.first_song.pk}
-            ), data={
+            reverse("catalog:song-update", kwargs={"pk": self.first_song.pk}),
+            data={
                 "title": "Sonne",
                 "duration": 3.11,
                 "genre": self.genre.id,
                 "performer": self.performer.id,
-                "listener": self.user.id}
+                "listener": self.user.id,
+            },
         )
         self.assertRedirects(response, SONG_URL)
 
     def test_song_successful_deletion_redirects_to_success_url(self):
         response = self.client.post(
-            reverse(
-                "catalog:song-delete",
-                kwargs={"pk": self.first_song.pk}
-            )
+            reverse("catalog:song-delete", kwargs={"pk": self.first_song.pk})
         )
         self.assertRedirects(response, SONG_URL)

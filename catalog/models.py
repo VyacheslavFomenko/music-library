@@ -36,8 +36,10 @@ class Song(models.Model):
 
     def clean(self):
         if self.duration <= 0:
-            raise ValidationError({'duration': 'Duration must be a positive number'})
+            raise ValidationError({"duration": "Duration must be a positive number"})
 
     def __str__(self):
-        return (f"Song title: {self.title}, Duration: {self.duration} min/sec, "
-                f"Genre: {self.genre}.")
+        return (
+            f"Song title: {self.title}, Duration: {self.duration} min/sec, "
+            f"Genre: {self.genre}."
+        )
