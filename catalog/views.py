@@ -3,7 +3,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views import generic
+from django.views import generic, View
 
 from catalog.forms import SearchForm
 from catalog.models import Song, Performer, Genre
@@ -159,11 +159,14 @@ class PerformerDeleteView(LoginRequiredMixin, generic.DeleteView):
     success_url = reverse_lazy("catalog:performer-list")
 
 
-@login_required
-def add_song_to_favorites(request, pk):
-    listener = Listener.objects.get(id=request.user.id)
-    if Song.objects.get(id=pk) in listener.songs.all():
-        listener.songs.remove(pk)
-    else:
-        listener.songs.add(pk)
-    return HttpResponseRedirect(reverse_lazy("catalog:song-detail", args=[pk]))
+class AddSongToFavoritesView(LoginRequiredMixin, View):
+    def post(self, request, pk, *args, **kwargs):
+        listener = Listener.objects.get(id=request.user.id)
+        song = Song.objects.get(id=pk)
+
+        if song in listener.songs.all():
+            listener.songs.remove(song)
+        else:
+            listener.songs.add(song)
+
+        return HttpResponseRedirect(reverse_lazy("catalog:song-detail", args=[pk]))

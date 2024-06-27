@@ -8,13 +8,17 @@
                 <a href="{% url 'catalog:song-delete' pk=song.id %}" class="btn btn-danger mx-2">Delete</a>
                 <a href="{% url 'catalog:song-update' pk=song.id %}" class="btn btn-secondary mx-2">Update</a>
 
-                {% if song in user.songs.all %}
-                    <a href="{% url 'catalog:add-to-favourite-song' pk=song.id %}" class="btn btn-danger mx-2">Delete
-                        from Favorites</a>
-                {% else %}
-                    <a href="{% url 'catalog:add-to-favourite-song' pk=song.id %}" class="btn btn-success mx-2">Add to
-                        Favorites</a>
-                {% endif %}
+                <form method="post" action="{% url 'catalog:add-to-favourite-song' pk=song.id %}">
+                    {% csrf_token %}
+                        {% if song in user.songs.all %}
+                            <button class="btn btn-danger mx-2" type="submit">
+                            Delete from Favorites </button>
+                        {% else %}
+                            <button class="btn btn-success mx-2" type="submit">
+                            Add to Favorites </button>
+                        {% endif %}
+                    
+                </form>
             </div>
         </h1>
         <p>Genre: {{ song.genre.name }}</p>

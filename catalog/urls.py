@@ -16,7 +16,7 @@ from catalog.views import (
     PerformerUpdateView,
     PerformerDeleteView,
     PerformerDetailView,
-    add_song_to_favorites,
+    AddSongToFavoritesView,
 )
 
 urlpatterns = [
@@ -28,7 +28,7 @@ urlpatterns = [
     path("song/<int:pk>/delete/", SongDeleteView.as_view(), name="song-delete"),
     path(
         "song/<int:pk>/add-to-favourite-song",
-        add_song_to_favorites,
+        AddSongToFavoritesView.as_view(),
         name="add-to-favourite-song",
     ),
     path("genre/", GenreListView.as_view(), name="genre-list"),
