@@ -10,7 +10,7 @@ from listener.views import (
 urlpatterns = [
     path("listener/<int:pk>/", ListenerDetailView.as_view(), name="listener-detail"),
     path(
-        "listener/<int:pk>/delete", ListenerDeleteView.as_view(), name="listener-delete"
+        "listener/<int:pk>/delete/", ListenerDeleteView.as_view(), name="listener-delete"
     ),
     path(
         "listener/<int:pk>/update/",
