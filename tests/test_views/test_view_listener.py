@@ -6,18 +6,13 @@ from listener.forms import ListenerCreationForm
 
 # LISTENER_URL = reverse("listener:listener-detail")
 
-LISTENER_DATA = {
-    "username": "test",
-    "password1": "Test1234q",
-    "password2": "Test1234q"
-}
+LISTENER_DATA = {"username": "test", "password1": "Test1234q", "password2": "Test1234q"}
 
 
 class PrivateListenerFormatTest(TestCase):
     def setUp(self) -> None:
         self.user = get_user_model().objects.create_user(
-            username="test",
-            password="test123"
+            username="test", password="test123"
         )
         get_user_model().objects.create_user(
             username="somebody",
@@ -56,29 +51,21 @@ class DriverChangeTest(TestCase):
 
     def test_successful_driver_creation(self):
         response = self.client.post(
-            reverse("listener:listener-create"),
-            data=LISTENER_DATA
+            reverse("listener:listener-create"), data=LISTENER_DATA
         )
         listener = get_user_model().objects.get(username="test")
         self.assertEqual(response.status_code, 302)
 
-        self.assertTrue(
-            get_user_model().objects.filter(username="test").exists()
-        )
+        self.assertTrue(get_user_model().objects.filter(username="test").exists())
         self.assertRedirects(
-            response, reverse(
-                "listener:listener-detail",
-                kwargs={"pk": listener.pk}
-            )
+            response, reverse("listener:listener-detail", kwargs={"pk": listener.pk})
         )
 
     def test_unsuccessful_listener_creation(self):
         data = {"username": "test"}
         response = self.client.post(reverse("listener:listener-create"), data=data)
         self.assertEqual(response.status_code, 200)
-        self.assertFalse(
-            get_user_model().objects.filter(username="test").exists()
-        )
+        self.assertFalse(get_user_model().objects.filter(username="test").exists())
 
     def test_listener_creation_form_displayed_on_page(self):
         response = self.client.get(reverse("listener:listener-create"))
@@ -86,11 +73,6 @@ class DriverChangeTest(TestCase):
 
     def test_listener_successful_deletion_redirects_to_success_url(self):
         self.client.post(
-            reverse(
-                "listener:listener-delete",
-                kwargs={"pk": self.user.pk}
-
-            )
+            reverse("listener:listener-delete", kwargs={"pk": self.user.pk})
         )
-        self.assertFalse(get_user_model().objects.filter(pk=self.user.pk)
-                         .exists())
+        self.assertFalse(get_user_model().objects.filter(pk=self.user.pk).exists())

@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="container my-5">
-    <h1 class="mb-4">Create Genre</h1>
+    <h1 class="mb-4">{{ object|yesno:"Update,Create"}} Genre</h1>
     <div class="card">
         <div class="card-body">
             <form action="" method="post" novalidate>

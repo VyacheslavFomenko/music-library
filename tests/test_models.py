@@ -14,29 +14,27 @@ class TestModels(TestCase):
             username="listener",
             first_name="Nick",
             last_name="Gordon",
-            password="test_password"
+            password="test_password",
         )
 
         self.performer = Performer.objects.create(
-            first_name="Mick",
-            last_name="Gordon",
-            nickname="Mick"
+            first_name="Mick", last_name="Gordon", nickname="Mick"
         )
 
     def test_genre_str(self):
-        self.assertEqual(
-            str(self.genre),
-            f"{self.genre.name}"
-        )
+        self.assertEqual(str(self.genre), f"{self.genre.name}")
 
     def test_listener_str(self):
         self.assertEqual(
             str(self.listener),
-            f"{self.listener.username}, {self.listener.first_name}, {self.listener.last_name}.")
+            f"{self.listener.username}, {self.listener.first_name}, {self.listener.last_name}.",
+        )
 
     def test_performer_str(self):
-        self.assertEqual(str(self.performer),
-                         f"{self.performer.nickname} {self.performer.first_name} {self.performer.last_name}")
+        self.assertEqual(
+            str(self.performer),
+            f"{self.performer.nickname} {self.performer.first_name} {self.performer.last_name}",
+        )
 
     def test_song_str(self):
         song = Song.objects.create(
@@ -45,5 +43,8 @@ class TestModels(TestCase):
             genre=self.genre,
         )
 
-        self.assertEqual(str(song), f"Song title: {song.title}, Duration: {song.duration} min/sec, "
-                                    f"Genre: {song.genre}.")
+        self.assertEqual(
+            str(song),
+            f"Song title: {song.title}, Duration: {song.duration} min/sec, "
+            f"Genre: {song.genre}.",
+        )

@@ -19,8 +19,7 @@ class PublicGenreFormatTest(TestCase):
 class PrivateGenreFormatTest(TestCase):
     def setUp(self) -> None:
         self.user = get_user_model().objects.create_user(
-            username="test",
-            password="test123"
+            username="test", password="test123"
         )
         self.client.force_login(self.user)
 
@@ -34,10 +33,7 @@ class PrivateGenreFormatTest(TestCase):
 
         genre = Genre.objects.all()
 
-        self.assertEqual(
-            list(response.context["genre_list"]),
-            list(genre)
-        )
+        self.assertEqual(list(response.context["genre_list"]), list(genre))
 
         self.assertTemplateUsed(response, "catalog/genre_list.html")
 
@@ -63,25 +59,19 @@ class GenreChangeTests(TestCase):
         )
 
         self.user = get_user_model().objects.create_user(
-            username="test",
-            password="test123"
+            username="test", password="test123"
         )
         self.client.force_login(self.user)
 
     def test_genre_update_redirects_to_success_url(self):
         response = self.client.post(
-            reverse(
-                "catalog:genre-update",
-                kwargs={"pk": self.genre.pk}
-            ), data={"name": "GLAM"}
+            reverse("catalog:genre-update", kwargs={"pk": self.genre.pk}),
+            data={"name": "GLAM"},
         )
         self.assertRedirects(response, GENRE_URL)
 
     def test_genre_successful_deletion_redirects_to_success_url(self):
         response = self.client.post(
-            reverse(
-                "taxi:manufacturer-delete",
-                kwargs={"pk": self.genre.pk}
-            )
+            reverse("taxi:manufacturer-delete", kwargs={"pk": self.genre.pk})
         )
         self.assertRedirects(response, GENRE_URL)
