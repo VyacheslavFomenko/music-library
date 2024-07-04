@@ -9,6 +9,7 @@ from listener.models import Listener
 
 # Create your views here.
 
+
 class ListenerDetailView(LoginRequiredMixin, generic.DetailView):
     model = Listener
 
